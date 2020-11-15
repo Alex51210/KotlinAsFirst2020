@@ -72,7 +72,17 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int = TODO()
+fun digitNumber(n: Int): Int =
+    if (n == 0) 1 else {
+        var i = 0
+        var number = n
+        while (number > 0) {
+            number /= 10
+            i++
+        }
+        i
+    }
+
 
 /**
  * Простая (2 балла)
@@ -80,14 +90,33 @@ fun digitNumber(n: Int): Int = TODO()
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = TODO()
+fun fib(n: Int): Int =
+    if (n < 3) 1 else {
+        var number = 3
+        var f1 = 1
+        var f2 = 1
+        var f3 = 1
+        while (number <= n) {
+            f3 = f2 + f1
+            f1 = f2
+            f2 = f3
+            number++
+        }
+        f3
+    }
 
 /**
  * Простая (2 балла)
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int =
+    if (n == 2) 2 else {
+        var i = 2
+        while (n % i > 0)
+            i++
+        i
+    }
 
 /**
  * Простая (2 балла)
@@ -168,7 +197,14 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean =
+    if (n == 0) false else {
+        val a = n % 10
+        var b = n
+        while ((b > 0) && (b % 10 == a))
+            b /= 10
+        if (b == 0) false else true
+    }
 
 /**
  * Средняя (4 балла)
@@ -212,4 +248,32 @@ fun squareSequenceDigit(n: Int): Int = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int =
+    if (n < 3) 1 else {
+        var number = 3
+        var f1 = 1
+        var f2 = 1
+        var f3: Int
+        var count = 0
+        var s = 0
+        var digit: Int
+        while (number <= n) {
+            f3 = f2 + f1
+            f1 = f2
+            f2 = f3
+            digit = f3
+            while (digit > 9) {
+                s++
+                digit /= 10
+            }
+            if (n - number < s)
+                while (s > n - number) {
+                    s--
+                    f3 /= 10
+                } else number += s
+            number++
+            s = 0
+            count = f3 % 10
+        }
+        count
+    }
